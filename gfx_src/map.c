@@ -35,8 +35,6 @@ char			*strip_newline(char *str)
 	return (ret);
 }
 
-
-
 int				init_map(void)
 {
 	int				i;
@@ -51,7 +49,10 @@ int				init_map(void)
 		if ((MAP->grid[i] = (t_cell *)malloc(sizeof(t_cell) * MAP->map_x)) == NULL)
 			return (print_exit("Failed to malloc grid"));
 		while (++j < MAP->map_x)
+		{
 			bzero(MAP->grid[i][j].contents, sizeof(int) * 7);
+			MAP->grid[i][j].player = NULL;
+		}
 	}
 	i = -1;
 	while (++i < MAP->map_y)
@@ -63,7 +64,7 @@ int				init_map(void)
 	}
 	return (0);
 }
-/*"bct X Y q q q q q q q\n"*/
+
 int				input_cell_contents(char *contents)
 {
 	char			**av;
@@ -75,7 +76,6 @@ int				input_cell_contents(char *contents)
 
 	data = strip_newline(contents);
 	av = ft_strsplit(data, ' ');
-	dprintf(1, "%s %s %s %s %s %s %s %s %s %s\n", av[0], av[1], av[2], av[3], av[4], av[5] , av[6], av[7], av[8], av[9]);
 	x = atoi(av[1]);
 	y = atoi(av[2]);
 	findings[0] = atoi(av[3]);
@@ -88,7 +88,19 @@ int				input_cell_contents(char *contents)
 	memcpy(MAP->grid[y][x].contents, findings, sizeof(int) * 7);
 	return (0);
 }
+/*
+int				input_new_player(char *msg)
+{
+	char			**av;
+	char			*data;
+	int				x;
+	int				y;
 
+	data = strip_newline(mapdata);
+	av = ft_strsplit(data, ' ');
+	return (0);
+}
+*/
 int				input_mapdata(char *mapdata)
 {
 	char			**av;
@@ -96,7 +108,6 @@ int				input_mapdata(char *mapdata)
 
 	data = strip_newline(mapdata);
 	av = ft_strsplit(data, ' ');
-	dprintf(1, "%s %s %s\n", av[0], av[1], av[2]);
 	MAP->map_x = atoi(av[1]);
 	MAP->map_y = atoi(av[2]);
 	if (MAP->map_x < 0 || MAP->map_y < 0)
@@ -104,6 +115,10 @@ int				input_mapdata(char *mapdata)
 	init_map();
 	input_cell_contents("bct 0 0 1 1 1 1 1 1 1\n");
 	input_cell_contents("bct 0 1 1 1 1 1 1 1 1\n");
+	//input_new_player("pnw #1 1 1 1 1 bob\n");
+	MAP->grid[0][0].player = (t_player *)malloc(sizeof(t_player));
+	MAP->grid[2][4].player = (t_player *)malloc(sizeof(t_player));
+	MAP->grid[1][5].player = (t_player *)malloc(sizeof(t_player));
 	int i = -1;
 	int j;
 	while (++i < MAP->map_y)
@@ -111,6 +126,8 @@ int				input_mapdata(char *mapdata)
 		j = -1;
 		while (++j < MAP->map_x)
 		{
+			if (MAP->grid[i][j].player)
+				printf("i");
 			if (MAP->grid[i][j].contents[0] != 0)
 				printf("o");
 			else
@@ -121,7 +138,5 @@ int				input_mapdata(char *mapdata)
 	return (0);
 }
 
-int				input_new_player(char *msg)
-{
 
-}
+

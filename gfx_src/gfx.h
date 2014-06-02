@@ -14,8 +14,15 @@
 # define GFX_H
 # include <stdio.h>
 # include "SDL2/include/SDL2/sdl.h"
+# include "SDL2img/include/SDL2/SDL_image.h"
 # include "../includes/libft.h"
 # define MAP (map_singleton())
+# define LIN		10
+# define COL		10
+# define SCN_W		1200
+# define SCN_H		1200
+# define CELL_W		120
+# define CELL_H		120
 /*
 **	print.c
 */
@@ -34,10 +41,21 @@ int				get_hostname(int ac, char **av, char **host);
 int				start_gfx(int ac, char **av);
 
 
+typedef struct		s_player
+{
+	int				id;
+	char			*team;
+	int				pos_x;
+	int				pos_y;
+	int				lv;
+	int				o;
+	struct s_player	*next;
+}					t_player;
 
 typedef struct		s_cell
 {
 	int				contents[7];
+	t_player		*player;
 }					t_cell;
 typedef struct		s_map
 {
@@ -50,4 +68,15 @@ typedef struct		s_map
 */
 t_map			*map_singleton(void);
 int				input_mapdata(char *mapdata);
+
+/*
+**	sdl_functions.c
+*/
+SDL_Texture		*load_texture(char *file, SDL_Renderer *ren);
+void			render_texture(SDL_Texture *t, SDL_Renderer *r, int x, int y);
+
+/*
+**	render.c
+*/
+int				bobone(SDL_Window *window);
 #endif

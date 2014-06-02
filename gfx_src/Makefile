@@ -17,9 +17,11 @@ SRC3 += print.c
 SRC3 += gfx.c
 SRC3 += argv.c
 SRC3 += map.c
+SRC3 += sdl_functions.c
+SRC3 += render.c
 
 OBJ3 = $(subst .c,.o,$(SRC3))
-LDFLAGS = `SDL2/bin/sdl2-config --cflags --libs`
+LDFLAGS = `SDL2/bin/sdl2-config --cflags --libs` -L SDL2img/lib -lSDL2_image
 
 all: SDL2 $(NAME3)
 
@@ -54,6 +56,12 @@ SDL2:
 		&& ./configure --prefix=$(shell pwd)/SDL2/ \
 		&& $(MAKE) && $(MAKE) install )
 	mv SDL2-2.0.3.tar.gz SDL2-2.0.3 SDL2/junk
+
+SDL2i:
+	mkdir -p SDL2img/junk
+	( cd SDL2_image \
+		&& ./configure OBJC=clang CC=gcc --prefix=$(shell pwd)/SDL2img/ \
+		&& $(MAKE) && $(MAKE) install )
 
 SDL:
 	mkdir -p SDL2/junk
