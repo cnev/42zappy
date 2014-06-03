@@ -17,12 +17,16 @@
 # include "SDL2img/include/SDL2/SDL_image.h"
 # include "../includes/libft.h"
 # define MAP (map_singleton())
+# define TRUE		1
+# define FALSE		0
 # define LIN		10
 # define COL		10
 # define SCN_W		1200
 # define SCN_H		1200
 # define CELL_W		120
 # define CELL_H		120
+
+
 /*
 **	print.c
 */
@@ -49,25 +53,34 @@ typedef struct		s_player
 	int				pos_y;
 	int				lv;
 	int				o;
-	struct s_player	*next;
 }					t_player;
+
+typedef struct		s_pl
+{
+	int				id;
+	struct s_pl		*next;
+}					t_pl;
 
 typedef struct		s_cell
 {
 	int				contents[7];
-	t_player		*player;
+	t_pl			*pl;
 }					t_cell;
 typedef struct		s_map
 {
 	int				map_x;
 	int				map_y;
 	t_cell			**grid;
+	t_player		*player;
 }					t_map;
 /*
 **	map.c
 */
 t_map			*map_singleton(void);
-int				input_mapdata(char *mapdata);
+int				init_map(void);
+int				input_mapdata(char **data);
+int				input_cell_contents(char **data);
+int				dummy_testing_input(void);
 
 /*
 **	sdl_functions.c
@@ -79,4 +92,16 @@ void			render_texture(SDL_Texture *t, SDL_Renderer *r, int x, int y);
 **	render.c
 */
 int				bobone(SDL_Window *window);
+
+/*
+**	socket_recv.c
+*/
+char			**process_message(char *message);
+
+/*
+**	message_id.c
+*/
+int				id_message(char **data);
+
+
 #endif

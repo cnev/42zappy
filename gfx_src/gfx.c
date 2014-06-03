@@ -23,8 +23,8 @@ int				start_gfx(int ac, char **av)
 		return (-1);
 	if (get_hostname(ac, av, &host) < 0)
 		return (-1);
-	input_mapdata("msz 10 10\n");
-
+	dummy_testing_input();
+	printf("Job's done !\n");
 	SDL_Window		*window;
 
 	SDL_Init(SDL_INIT_VIDEO);

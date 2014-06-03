@@ -33,6 +33,7 @@ static int		render_player(SDL_Renderer *ren)
 {
 	int				i = -1;
 	int				j;
+
 	SDL_Texture		*background = load_texture("cercletamere.bmp", ren);
 
 	while (++i < MAP->map_y)

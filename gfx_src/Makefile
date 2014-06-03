@@ -19,6 +19,9 @@ SRC3 += argv.c
 SRC3 += map.c
 SRC3 += sdl_functions.c
 SRC3 += render.c
+SRC3 += socket_recv.c
+SRC3 += player_linkedlist.c
+SRC3 += message_id.c
 
 OBJ3 = $(subst .c,.o,$(SRC3))
 LDFLAGS = `SDL2/bin/sdl2-config --cflags --libs` -L SDL2img/lib -lSDL2_image
