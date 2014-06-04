@@ -12,6 +12,16 @@
 
 #include "gfx.h"
 
+static char		*get_cell(void)
+{
+	int				x = MAP->click_x;
+	int				y = MAP->click_y;
+	char			*str = malloc(1000);
+
+	sprintf(str, "Cell X:%d Y:%d\n", x, y);
+	return (str);
+}
+
 SDL_Surface		*prepare_ttf(SDL_Renderer *ren)
 {
 	SDL_RenderClear(ren);
@@ -20,7 +30,7 @@ SDL_Surface		*prepare_ttf(SDL_Renderer *ren)
 
 	SDL_Color couleurNoire = {255, 255, 255, 0};
 	SDL_Surface		*texte;
-	char		buf[] = "Mana Beast\nHP: 99999/9999\nMana: 999/999\nSpells: Wall, Burst, Light Ray\n";
+	char		*buf = get_cell();
 	texte = TTF_RenderText_Blended_Wrapped(police, buf, couleurNoire, 800);
 	TTF_CloseFont(police);
 	return (texte);
