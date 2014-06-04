@@ -57,9 +57,7 @@ static int		render_police(SDL_Renderer *ren, SDL_Surface *text)
 
 int				bobone(SDL_Window *window)
 {
-
 	SDL_Window		*window2;
-
 	window2 = SDL_CreateWindow("Test SDL 2.1", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
 	SDL_Renderer	*renderer = SDL_CreateRenderer(window, -1, 0);
 	SDL_Renderer	*renderer2 = SDL_CreateRenderer(window2, -1, 0);

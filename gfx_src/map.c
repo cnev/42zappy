@@ -65,6 +65,10 @@ int				input_cell_contents(char **data)
 	return (0);
 }
 
+int				input_player_lv(char **data)
+{
+
+}
 /*
 int				input_new_player(char *msg)
 {

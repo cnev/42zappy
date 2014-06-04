@@ -59,19 +59,23 @@ SDL2:
 	curl -o sdl2.tar.gz http://www.libsdl.org/release/SDL2-2.0.3.tar.gz
 	tar xf sdl2.tar.gz
 	( cd SDL2-2.0.3 \
-		&& ./configure OBJC=clang CC=gcc --prefix=$(shell pwd)/SDL2/ \
+		&& ./configure OBJC=clang CC=clang --prefix=$(shell pwd)/SDL2/ \
 		&& $(MAKE) && $(MAKE) install )
 	mv SDL2-2.0.3.tar.gz SDL2-2.0.3 SDL2/junk
 
 SDL2i:
 	mkdir -p SDL2img/junk
+	export THIS_DIR=$(PWD)/SDL2/bin/sdl2-config
 	( cd SDL2_image \
+		&& export SDL2_CONFIG=$(THIS_DIR) \
 		&& ./configure OBJC=clang CC=gcc --prefix=$(shell pwd)/SDL2img/ \
 		&& $(MAKE) && $(MAKE) install )
 
 SDL2t:
 	mkdir -p SDL2ttf/junk
+	export THIS_DIR=$(PWD)/SDL2/bin/sdl2-config
 	( cd SDL2_ttf \
+		&& export SDL2_CONFIG=$(THIS_DIR) \
 		&& ./configure OBJC=clang CC=gcc --prefix=$(shell pwd)/SDL2ttf \
 		&& $(MAKE) && $(MAKE) install )
 
