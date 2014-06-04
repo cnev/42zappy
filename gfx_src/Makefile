@@ -59,7 +59,7 @@ SDL2:
 	curl -o sdl2.tar.gz http://www.libsdl.org/release/SDL2-2.0.3.tar.gz
 	tar xf sdl2.tar.gz
 	( cd SDL2-2.0.3 \
-		&& ./configure --prefix=$(shell pwd)/SDL2/ \
+		&& ./configure OBJC=clang CC=gcc --prefix=$(shell pwd)/SDL2/ \
 		&& $(MAKE) && $(MAKE) install )
 	mv SDL2-2.0.3.tar.gz SDL2-2.0.3 SDL2/junk
 
