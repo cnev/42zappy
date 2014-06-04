@@ -22,19 +22,21 @@ SRC3 += render.c
 SRC3 += socket_recv.c
 SRC3 += player_linkedlist.c
 SRC3 += message_id.c
+SRC3 += ttf.c
 
 OBJ3 = $(subst .c,.o,$(SRC3))
-LDFLAGS = `SDL2/bin/sdl2-config --cflags --libs` -L SDL2img/lib -lSDL2_image
+LDFLAGS = `SDL2/bin/sdl2-config --cflags --libs` -L SDL2img/lib -lSDL2_image \
+			-L SDL2ttf/lib -lSDL2_ttf
 
 all: SDL2 $(NAME3)
 
 $(NAME3): $(OBJ3)
 	make -C ../libft
 	gcc -Wall -Wextra -Werror -o $(NAME3) $(OBJ3) -O3 -L../libft -lft $(LDFLAGS) \
-	-I includes
+	-I SDL2/includes/SDL2 -I SDL2ttf/includes/SDL2
 
 %.o:%.c
-	gcc -Wall -Wextra -Werror -O3 -c -o $@ $^ -I. -I includes
+	gcc -Wall -Wextra -Werror -O3 -c -o $@ $^ -I. -I SDL2/includes/SDL2 -I SDL2ttf/includes/SDL2
 
 clean:
 	make -C ../libft clean
@@ -54,7 +56,8 @@ re: fclean all
 
 SDL2:
 	mkdir -p SDL2/junk
-	tar xf SDL2-2.0.3.tar.gz
+	curl -o sdl2.tar.gz http://www.libsdl.org/release/SDL2-2.0.3.tar.gz
+	tar xf sdl2.tar.gz
 	( cd SDL2-2.0.3 \
 		&& ./configure --prefix=$(shell pwd)/SDL2/ \
 		&& $(MAKE) && $(MAKE) install )
@@ -64,6 +67,12 @@ SDL2i:
 	mkdir -p SDL2img/junk
 	( cd SDL2_image \
 		&& ./configure OBJC=clang CC=gcc --prefix=$(shell pwd)/SDL2img/ \
+		&& $(MAKE) && $(MAKE) install )
+
+SDL2t:
+	mkdir -p SDL2ttf/junk
+	( cd SDL2_ttf \
+		&& ./configure OBJC=clang CC=gcc --prefix=$(shell pwd)/SDL2ttf \
 		&& $(MAKE) && $(MAKE) install )
 
 SDL:

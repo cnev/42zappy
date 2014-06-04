@@ -15,6 +15,7 @@
 # include <stdio.h>
 # include "SDL2/include/SDL2/sdl.h"
 # include "SDL2img/include/SDL2/SDL_image.h"
+# include "SDL2ttf/include/SDL2/SDL_ttf.h"
 # include "../includes/libft.h"
 # define MAP (map_singleton())
 # define TRUE		1
@@ -64,14 +65,14 @@ typedef struct		s_pl
 typedef struct		s_cell
 {
 	int				contents[7];
-	t_pl			*pl;
+	t_pl			*player;
 }					t_cell;
 typedef struct		s_map
 {
 	int				map_x;
 	int				map_y;
 	t_cell			**grid;
-	t_player		*player;
+	t_pl			*player;
 }					t_map;
 /*
 **	map.c
@@ -102,6 +103,11 @@ char			**process_message(char *message);
 **	message_id.c
 */
 int				id_message(char **data);
+
+/*
+**	ttf.c
+*/
+SDL_Surface		*prepare_ttf(SDL_Renderer *ren);
 
 
 #endif

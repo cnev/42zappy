@@ -34,7 +34,7 @@ int				start_gfx(int ac, char **av)
 
 	SDL_Event		evenements;
 	int				terminer = 0;
-
+	TTF_Init();
 	//SDL_Texture		*texture = SDL_CreateTextureFromSurface(renderer, image);
 	//SDL_Rect dest = { 640/2 - image->w/2,480/2 - image->h/2, image->w, image->h};
 	//SDL_RenderCopy(renderer,texture,NULL,&dest); // Copie du sprite grâce au SDL_Renderer
@@ -50,6 +50,7 @@ int				start_gfx(int ac, char **av)
 			terminer = 1;
 	}
 	SDL_DestroyWindow(window);
+	TTF_Quit();
 	SDL_Quit();
 	return (0);
 }

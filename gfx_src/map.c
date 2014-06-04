@@ -101,8 +101,8 @@ int				dummy_testing_input(void)
 	recv = strdup("bct 0 1 1 1 1 1 1 1 1\n");
 	id_message(process_message(recv));
 	free(recv);
-	MAP->grid[0][0].player = (t_player *)malloc(sizeof(t_player));
-	MAP->grid[2][4].player = (t_player *)malloc(sizeof(t_player));
-	MAP->grid[1][5].player = (t_player *)malloc(sizeof(t_player));
+	MAP->grid[0][0].player = (t_pl *)malloc(sizeof(t_pl));
+	MAP->grid[2][4].player = (t_pl *)malloc(sizeof(t_pl));
+	MAP->grid[1][5].player = (t_pl *)malloc(sizeof(t_pl));
 	return (0);
 }
