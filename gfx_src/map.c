@@ -106,6 +106,3 @@ int				dummy_testing_input(void)
 	MAP->grid[1][5].player = (t_player *)malloc(sizeof(t_player));
 	return (0);
 }
-
-
-
