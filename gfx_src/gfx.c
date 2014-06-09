@@ -40,6 +40,7 @@ int				start_gfx(int ac, char **av)
 	// SDL_DestroyTexture(texture); // Libération de la mémoire associée à la texture
 	SDL_Renderer	*renderer = SDL_CreateRenderer(window, -1, 0);
 	SDL_Renderer	*renderer2 = SDL_CreateRenderer(window2, -1, 0);
+	int button_down = 0;
 	while(1)
 	{
 		SDL_WaitEvent(&evenements);
@@ -48,9 +49,14 @@ int				start_gfx(int ac, char **av)
 			break ;
 		if(evenements.type == SDL_MOUSEBUTTONDOWN)
 		{
-			printf("WID %d\n", evenements.button.windowID);
+			button_down = 1;
 			MAP->click_x = evenements.button.x;
 			MAP->click_y = evenements.button.y;
+		}
+		if(evenements.type == SDL_MOUSEBUTTONDOWN && button_down == 1)
+		{
+			button_down = 0;
+			bury_ore(MAP->click_x / 120, MAP->click_y / 120, 1, 5);
 			MAP->grid[7][7].player = (t_pl *)malloc(sizeof(t_pl));
 		}
 	}
