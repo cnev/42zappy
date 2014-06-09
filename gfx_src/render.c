@@ -29,6 +29,31 @@ static int		render_land(SDL_Renderer *ren)
 	return (0);
 }
 
+static int		render_ore(SDL_Renderer *ren)
+{
+	int				i = -1;
+	int				j;
+	int				k;
+
+	SDL_Texture		*background = load_texture("pioche.bmp", ren);
+	while (++i < MAP->map_y)
+	{
+		j = -1;
+		while (++j < MAP->map_x)
+		{
+			k = 0;
+			while (++k < 7)
+			{
+				if (MAP->grid[j][i]->content[k])
+				{
+					printf("ore bitch !\n");
+					render_texture(background, ren, CELL_W * j, CELL_H * i);
+				}
+			}
+		}
+	}
+}
+
 static int		render_player(SDL_Renderer *ren)
 {
 	int				i = -1;
