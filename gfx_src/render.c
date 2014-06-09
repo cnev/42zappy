@@ -29,6 +29,12 @@ static int		render_land(SDL_Renderer *ren)
 	return (0);
 }
 
+static int		bury_ore(int x, int y, int ore_type, int ore_nb)
+{
+	MAP->grid[y][x]->content[ore_type] = ore_nb;
+	return (0);
+}
+
 static int		render_ore(SDL_Renderer *ren)
 {
 	int				i = -1;
@@ -36,6 +42,7 @@ static int		render_ore(SDL_Renderer *ren)
 	int				k;
 
 	SDL_Texture		*background = load_texture("pioche.bmp", ren);
+	bury_ore(ren, 5, 5, 3, 9);
 	while (++i < MAP->map_y)
 	{
 		j = -1;
@@ -52,6 +59,7 @@ static int		render_ore(SDL_Renderer *ren)
 			}
 		}
 	}
+	return (0);
 }
 
 static int		render_player(SDL_Renderer *ren)
