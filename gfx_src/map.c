@@ -64,11 +64,11 @@ int				input_cell_contents(char **data)
 	memcpy(MAP->grid[y][x].contents, findings, sizeof(int) * 7);
 	return (0);
 }
-
+/*
 int				input_player_lv(char **data)
 {
 
-}
+}*/
 /*
 int				input_new_player(char *msg)
 {

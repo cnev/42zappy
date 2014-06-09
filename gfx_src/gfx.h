@@ -73,6 +73,8 @@ typedef struct		s_map
 	int				map_y;
 	t_cell			**grid;
 	t_pl			*player;
+	int				click_x;
+	int				click_y;
 }					t_map;
 /*
 **	map.c
@@ -92,7 +94,7 @@ void			render_texture(SDL_Texture *t, SDL_Renderer *r, int x, int y);
 /*
 **	render.c
 */
-int				bobone(SDL_Window *window);
+int				bobone(SDL_Renderer *window, SDL_Renderer *window2);
 
 /*
 **	socket_recv.c

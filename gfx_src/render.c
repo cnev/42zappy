@@ -42,7 +42,10 @@ static int		render_player(SDL_Renderer *ren)
 		while (++j < MAP->map_x)
 		{
 			if (MAP->grid[j][i].player)
+			{
+				printf("GOT SOMETHING %d %d\n", j, i);
 				render_texture(background, ren, CELL_W * j, CELL_H * i);
+			}
 		}
 	}
 	return (0);
@@ -55,14 +58,11 @@ static int		render_police(SDL_Renderer *ren, SDL_Surface *text)
 	return (0);
 }
 
-int				bobone(SDL_Window *window)
+int				bobone(SDL_Renderer *renderer, SDL_Renderer *renderer2)
 {
-	SDL_Window		*window2;
-	window2 = SDL_CreateWindow("Test SDL 2.1", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
-	SDL_Renderer	*renderer = SDL_CreateRenderer(window, -1, 0);
-	SDL_Renderer	*renderer2 = SDL_CreateRenderer(window2, -1, 0);
 	SDL_RenderClear(renderer);
-
+	SDL_RenderClear(renderer2);
+	printf("CLEARED!\n");
 	//renderTexture(background, renderer, 0, 0);
 	//renderTexture(background, renderer, 400, 400);
 	render_land(renderer);
