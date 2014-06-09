@@ -52,6 +52,8 @@ int				id_message(char **data)
 {
 	int				i;
 
+	if (!data)
+		return (-1);
 	i = -1;
 	while (g_msg[++i])
 	{

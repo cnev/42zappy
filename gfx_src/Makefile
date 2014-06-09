@@ -34,6 +34,8 @@ $(NAME3): $(OBJ3)
 	make -C ../libft
 	gcc -Wall -Wextra -Werror -o $(NAME3) $(OBJ3) -O3 -L../libft -lft $(LDFLAGS) \
 	-I SDL2/includes/SDL2 -I SDL2ttf/includes/SDL2
+	gcc -o server main2.c
+	gcc -o kirk main3.c
 
 %.o:%.c
 	gcc -Wall -Wextra -Werror -O3 -c -o $@ $^ -I. -I SDL2/includes/SDL2 -I SDL2ttf/includes/SDL2
@@ -78,6 +80,7 @@ SDL2i:
 		&& $(MAKE) && $(MAKE) install )
 	mv sdl2i.tar.gz SDL2/junk
 	cp SDL2/include/SDL2/*.h SDL2img/include/SDL2
+
 SDL2t:
 	mkdir -p SDL2ttf/junk
 	curl -o sdl2.tar.gz https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.12.tar.gz

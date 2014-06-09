@@ -23,7 +23,7 @@ int				start_gfx(int ac, char **av)
 		return (-1);
 	if (get_hostname(ac, av, &host) < 0)
 		return (-1);
-	dummy_testing_input();
+	//dummy_testing_input();
 	SDL_Window		*window;
 	SDL_Init(SDL_INIT_VIDEO);
 	window = SDL_CreateWindow("Test SDL 2.0", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 1200, 1200, SDL_WINDOW_SHOWN);
@@ -41,8 +41,32 @@ int				start_gfx(int ac, char **av)
 	SDL_Renderer	*renderer = SDL_CreateRenderer(window, -1, 0);
 	SDL_Renderer	*renderer2 = SDL_CreateRenderer(window2, -1, 0);
 	int button_down = 0;
+	struct my_msgbuf buf;
+    int msqid;
+    key_t key;
+
+    if ((key = ftok("gfx.c", 'B')) == -1) {  /* same key as kirk.c */
+        perror("ftok");
+        exit(1);
+    }
+
+    if ((msqid = msgget(key, 0644)) == -1) { /* connect to the queue */
+        perror("msgget");
+        exit(1);
+    }
+
 	while(1)
 	{
+		/*if ((xox = read(MAP->serv_fd, buf, 1023)) > 0)
+		{
+			buf[xox] = 0;
+			id_message(process_message(buf));
+		}*/
+		while (msgrcv(msqid, &buf, sizeof(buf.mtext), 0, IPC_NOWAIT) != -1)
+		{
+			printf("Message received: %s\n", buf.mtext);
+			id_message(process_message(buf.mtext));
+		}
 		SDL_WaitEvent(&evenements);
 		bobone(renderer, renderer2);
 		if(evenements.window.event == SDL_WINDOWEVENT_CLOSE)

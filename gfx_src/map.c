@@ -61,7 +61,7 @@ int				input_cell_contents(char **data)
 	findings[4] = atoi(data[7]);
 	findings[5] = atoi(data[8]);
 	findings[6] = atoi(data[9]);
-	memcpy(MAP->grid[y][x].contents, findings, sizeof(int) * 7);
+	memcpy(MAP->grid[x][y].contents, findings, sizeof(int) * 7);
 	return (0);
 }
 /*

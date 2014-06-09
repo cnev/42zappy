@@ -13,6 +13,18 @@
 #ifndef GFX_H
 # define GFX_H
 # include <stdio.h>
+# include <sys/types.h>
+# include <sys/socket.h>
+# include <netinet/in.h>
+# include <arpa/inet.h>
+# include <netdb.h>
+# include <fcntl.h>
+# include <sys/stat.h>
+#include <stdlib.h>
+#include <errno.h>
+#include <sys/types.h>
+#include <sys/ipc.h>
+#include <sys/msg.h>
 # include "SDL2/include/SDL2/sdl.h"
 # include "SDL2img/include/SDL2/SDL_image.h"
 # include "SDL2ttf/include/SDL2/SDL_ttf.h"
@@ -27,7 +39,10 @@
 # define CELL_W		120
 # define CELL_H		120
 
-
+struct my_msgbuf {
+    long mtype;
+    char mtext[200];
+};
 /*
 **	print.c
 */
@@ -75,6 +90,7 @@ typedef struct		s_map
 	t_pl			*player;
 	int				click_x;
 	int				click_y;
+	int				serv_fd;
 }					t_map;
 /*
 **	map.c

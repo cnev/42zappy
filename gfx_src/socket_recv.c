@@ -28,6 +28,8 @@ char			**process_message(char *message)
 	char			**tab;
 	char			*data;
 
+	if (!message)
+		return (NULL);
 	data = strip_newline(message);
 	tab = ft_strsplit(data, ' ');
 	free(data);
