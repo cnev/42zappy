@@ -77,7 +77,7 @@ SDL2i:
 		&& ./configure OBJC=clang CC=gcc --prefix=$(shell pwd)/SDL2img/ \
 		&& $(MAKE) && $(MAKE) install )
 	mv sdl2i.tar.gz SDL2/junk
-	cp SDL2/include/*.h SDL2img/include
+	cp SDL2/include/SDL2/*.h SDL2img/include/SDL2
 SDL2t:
 	mkdir -p SDL2ttf/junk
 	curl -o sdl2.tar.gz https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.12.tar.gz
@@ -87,7 +87,7 @@ SDL2t:
 		&& ./configure OBJC=clang CC=gcc --prefix=$(shell pwd)/SDL2ttf \
 		&& $(MAKE) && $(MAKE) install )
 	mv sdl2.tar.gz SDL2/junk
-	cp SDL2/include/*.h SDL2ttf/include
+	cp SDL2/include/SDL2/*.h SDL2ttf/include/SDL2
 
 SDL:
 	mkdir -p SDL2/junk
