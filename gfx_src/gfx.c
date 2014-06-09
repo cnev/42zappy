@@ -56,8 +56,8 @@ int				start_gfx(int ac, char **av)
 		if(evenements.type == SDL_MOUSEBUTTONDOWN && button_down == 1)
 		{
 			button_down = 0;
-			bury_ore(MAP->click_x / 120, MAP->click_y / 120, 1, 5);
-			MAP->grid[7][7].player = (t_pl *)malloc(sizeof(t_pl));
+			bury_ore(MAP->click_y / 120, MAP->click_x / 120, 1, 5);
+			MAP->grid[MAP->click_x/ 120][MAP->click_y / 120].player = (t_pl *)malloc(sizeof(t_pl));
 		}
 	}
 	SDL_DestroyWindow(window);

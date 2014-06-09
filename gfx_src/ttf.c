@@ -35,4 +35,3 @@ SDL_Surface		*prepare_ttf(SDL_Renderer *ren)
 	TTF_CloseFont(police);
 	return (texte);
 }
-x

@@ -95,6 +95,7 @@ void			render_texture(SDL_Texture *t, SDL_Renderer *r, int x, int y);
 **	render.c
 */
 int				bobone(SDL_Renderer *window, SDL_Renderer *window2);
+int		bury_ore(int x, int y, int ore_type, int ore_nb);
 
 /*
 **	socket_recv.c

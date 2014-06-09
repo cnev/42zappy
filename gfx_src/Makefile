@@ -28,7 +28,7 @@ OBJ3 = $(subst .c,.o,$(SRC3))
 LDFLAGS = `SDL2/bin/sdl2-config --cflags --libs` -L SDL2img/lib -lSDL2_image \
 			-L SDL2ttf/lib -lSDL2_ttf
 
-all: SDL2 SDL2i SDL2t $(NAME3)
+all: $(NAME3)
 
 $(NAME3): $(OBJ3)
 	make -C ../libft
@@ -56,6 +56,8 @@ fclean: clean
 re: fclean all
 
 .PHONY: clean fclean re
+
+SDLinstall: SDL2 SDL2i SDL2t
 
 SDL2:
 	mkdir -p SDL2/junk
