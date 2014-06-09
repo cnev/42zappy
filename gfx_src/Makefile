@@ -49,6 +49,9 @@ fclean: clean
 	rm -f $(NAME1)
 	rm -f $(NAME2)
 	rm -f $(NAME3)
+	rm -rf SDL2
+	rm -rf SDL2img
+	rm -rf SDL2ttf
 
 re: fclean all
 
@@ -61,23 +64,26 @@ SDL2:
 	( cd SDL2-2.0.3 \
 		&& ./configure OBJC=clang CC=clang --prefix=$(shell pwd)/SDL2/ \
 		&& $(MAKE) && $(MAKE) install )
-	mv SDL2-2.0.3.tar.gz SDL2-2.0.3 SDL2/junk
+	mv sdl2.tar.gz SDL2/junk
 
 SDL2i:
 	mkdir -p SDL2img/junk
-	export THIS_DIR=$(PWD)/SDL2/bin/sdl2-config
-	( cd SDL2_image \
-		&& export SDL2_CONFIG=$(THIS_DIR) \
+	curl -o sdl2i.tar.gz https://www.libsdl.org/projects/SDL_image/release/SDL2_image-2.0.0.tar.gz
+	tar xf sdl2i.tar.gz
+	( export SDL2_CONFIG=$(PWD)/SDL2/bin/sdl2-config \
+		&& cd SDL2_image-2.0.0 \
 		&& ./configure OBJC=clang CC=gcc --prefix=$(shell pwd)/SDL2img/ \
 		&& $(MAKE) && $(MAKE) install )
-
+	mv sdl2i.tar.gz SDL2/junk
 SDL2t:
 	mkdir -p SDL2ttf/junk
-	export THIS_DIR=$(PWD)/SDL2/bin/sdl2-config
-	( cd SDL2_ttf \
-		&& export SDL2_CONFIG=$(THIS_DIR) \
+	curl -o sdl2.tar.gz https://www.libsdl.org/projects/SDL_ttf/release/SDL2_ttf-2.0.12.tar.gz
+	tar xf sdl2.tar.gz
+	( export SDL2_CONFIG=$(PWD)/SDL2/bin/sdl2-config \
+		&& cd SDL2_ttf-2.0.12 \
 		&& ./configure OBJC=clang CC=gcc --prefix=$(shell pwd)/SDL2ttf \
 		&& $(MAKE) && $(MAKE) install )
+	mv sdl2.tar.gz SDL2/junk
 
 SDL:
 	mkdir -p SDL2/junk
