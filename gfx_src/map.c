@@ -83,6 +83,44 @@ int				input_new_player(char *msg)
 }
 */
 
+int				locate_before_moving(char **data, int *delta, int *coords)
+{
+	int				o;
+
+	o = atoi(data[4]);
+	if (o == 1)
+		delta[1] = 1;
+	else if (o == 2)
+		delta[0] = -1;
+	else if (o == 3)
+		delta[1] = -1;
+	else if (o == 4)
+		delta[0] = 1;
+	coords[0] = atoi(data[2]);
+	coords[1] = atoi(data[3]);
+	coords[2] = coords[0] + delta[0];
+	coords[3] = coords[1] + delta[1];
+	printf("Moving at %d %d\nSearching at %d %d\n", coords[0], coords[1], coords[2], coords[3]);
+	if (MAP->grid[coords[2]][coords[3]].player)
+		return (0);
+	return (-1);
+}
+
+int				move_player(char **data)
+{
+	int				delta[2] = {0, 0};
+	int				coords[4];
+	/*
+	Move:
+		- pmv #n dst_x dst_y dst_o
+	*/
+	if (locate_before_moving(data, delta, coords) == -1)
+		return (-1);
+	MAP->grid[coords[2]][coords[3]].player = NULL;
+	MAP->grid[coords[0]][coords[1]].player = (t_pl *)malloc(sizeof(t_pl));
+	return (0);
+}
+
 int				input_mapdata(char **data)
 {
 	MAP->map_x = atoi(data[1]);

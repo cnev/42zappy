@@ -43,9 +43,19 @@ int				msg_is_pnw(char **data)
 	return (FALSE);
 }
 
+int				msg_is_pmv(char **data)
+{
+	if (!strcmp(data[0], "pmv"))
+	{
+		move_player(data);
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
 static int		(*g_msg[])(char **) =
 	{
-		&msg_is_msz, &msg_is_bct, NULL
+		&msg_is_msz, &msg_is_bct, msg_is_pmv, NULL
 	};
 
 int				id_message(char **data)

@@ -67,17 +67,19 @@ int				start_gfx(int ac, char **av)
 			printf("Message received: %s\n", buf.mtext);
 			id_message(process_message(buf.mtext));
 		}
-		SDL_WaitEvent(&evenements);
 		bobone(renderer, renderer2);
+		SDL_WaitEvent(&evenements);
 		if(evenements.window.event == SDL_WINDOWEVENT_CLOSE)
 			break ;
+		if (evenements.type != SDL_MOUSEBUTTONDOWN && evenements.type != SDL_MOUSEBUTTONUP)
+			continue ;
 		if(evenements.type == SDL_MOUSEBUTTONDOWN)
 		{
 			button_down = 1;
 			MAP->click_x = evenements.button.x;
 			MAP->click_y = evenements.button.y;
 		}
-		if(evenements.type == SDL_MOUSEBUTTONDOWN && button_down == 1)
+		if(evenements.type == SDL_MOUSEBUTTONUP && button_down == 1)
 		{
 			button_down = 0;
 			bury_ore(MAP->click_y / 120, MAP->click_x / 120, 1, 5);

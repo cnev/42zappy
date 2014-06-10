@@ -52,7 +52,6 @@ static int		render_ore(SDL_Renderer *ren)
 			{
 				if (MAP->grid[j][i].contents[k])
 				{
-					printf("ore bitch !\n");
 					render_texture(background, ren, CELL_W * j, CELL_H * i);
 				}
 			}
@@ -75,7 +74,6 @@ static int		render_player(SDL_Renderer *ren)
 		{
 			if (MAP->grid[j][i].player)
 			{
-				printf("GOT SOMETHING %d %d\n", j, i);
 				render_texture(background, ren, CELL_W * j, CELL_H * i);
 			}
 		}
@@ -94,7 +92,6 @@ int				bobone(SDL_Renderer *renderer, SDL_Renderer *renderer2)
 {
 	SDL_RenderClear(renderer);
 	SDL_RenderClear(renderer2);
-	printf("CLEARED!\n");
 	//renderTexture(background, renderer, 0, 0);
 	//renderTexture(background, renderer, 400, 400);
 	render_land(renderer);

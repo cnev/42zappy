@@ -80,7 +80,7 @@ typedef struct		s_pl
 typedef struct		s_cell
 {
 	int				contents[7];
-	t_pl			*player;
+
 }					t_cell;
 typedef struct		s_map
 {
@@ -100,6 +100,7 @@ int				init_map(void);
 int				input_mapdata(char **data);
 int				input_cell_contents(char **data);
 int				dummy_testing_input(void);
+int				move_player(char **data);
 
 /*
 **	sdl_functions.c
