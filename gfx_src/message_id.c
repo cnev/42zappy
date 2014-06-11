@@ -65,7 +65,8 @@ int				msg_is_welcome(char **data)
 
 static int		(*g_msg[])(char **) =
 	{
-		&msg_is_welcome, &msg_is_pnw, &msg_is_msz, &msg_is_bct, msg_is_pmv, NULL
+		&msg_is_welcome, &msg_is_pnw, &msg_is_msz,
+		&msg_is_bct, msg_is_pmv, NULL
 	};
 
 int				id_message(char **data)

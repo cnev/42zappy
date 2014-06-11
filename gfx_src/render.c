@@ -16,15 +16,14 @@ static int		render_land(SDL_Renderer *ren)
 {
 	int				i = -1;
 	int				j;
-	SDL_Texture		*background = load_texture("img/fond_vert.bmp", ren);
+	SDL_Texture		*img;
 
+	img = load_texture("img/fond_vert.bmp", ren);
 	while (++i < MAP->map_y)
 	{
 		j = -1;
 		while (++j < MAP->map_x)
-		{
 			render_texture(background, ren, CELL_W * j, CELL_H * i);
-		}
 	}
 	return (0);
 }
@@ -40,8 +39,9 @@ static int		render_ore(SDL_Renderer *ren)
 	int				i = -1;
 	int				j;
 	int				k;
+	SDL_Texture		*img;
 
-	SDL_Texture		*background = load_texture("img/pioche.bmp", ren);
+	img = load_texture("img/pioche.bmp", ren);
 	while (++i < MAP->map_y)
 	{
 		j = -1;
@@ -51,9 +51,7 @@ static int		render_ore(SDL_Renderer *ren)
 			while (++k < 7)
 			{
 				if (MAP->grid[j][i].contents[k])
-				{
-					render_texture(background, ren, CELL_W * j, CELL_H * i);
-				}
+					render_texture(img, ren, CELL_W * j, CELL_H * i);
 			}
 		}
 	}
@@ -62,13 +60,14 @@ static int		render_ore(SDL_Renderer *ren)
 
 static int		render_player(SDL_Renderer *ren)
 {
-	SDL_Texture		*background = load_texture("img/cercletamere.bmp", ren);
+	SDL_Texture		*img;
 	t_pl			*tmp;
 
 	tmp = MAP->players;
+	img = load_texture("img/cercletamere.bmp", ren);
 	while (tmp)
 	{
-		render_texture(background, ren, CELL_W * tmp->pos_x, CELL_H * tmp->pos_y);
+		render_texture(img, ren, CELL_W * tmp->pos_x, CELL_H * tmp->pos_y);
 		tmp = tmp->next;
 	}
 	return (0);
@@ -85,8 +84,6 @@ int				bobone(SDL_Renderer *renderer, SDL_Renderer *renderer2)
 {
 	SDL_RenderClear(renderer);
 	SDL_RenderClear(renderer2);
-	//renderTexture(background, renderer, 0, 0);
-	//renderTexture(background, renderer, 400, 400);
 	render_land(renderer);
 	render_player(renderer);
 	render_ore(renderer);

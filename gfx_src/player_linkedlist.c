@@ -12,9 +12,6 @@
 
 #include "gfx.h"
 
-
-
-
 static t_pl			*new_pl(char **data)
 {
 	t_pl			*elem;
@@ -61,47 +58,3 @@ void			pushback_pl(t_pl **first, char **data)
 		tmp->next = new_elem;
 	}
 }
-
-/*
-void			delete_list(t_pl **first)
-{
-	t_pl	*tmp;
-	t_pl	*prev;
-
-	if (!*first)
-	{
-		return ;
-	}
-	prev = *first;
-	tmp = (*first)->next;
-	while (prev)
-	{
-		free(prev);
-		prev = tmp;
-		if (tmp)
-			tmp = tmp->next;
-	}
-	*first = NULL;
-}
-
-
-void			show_list(t_list_player *first)
-{
-	t_list_player	*tmp;
-	int				i;
-
-	i = 0;
-	if (first == NULL)
-		return ;
-	tmp = first;
-	while (tmp)
-	{
-		ft_putchar('[');
-		ft_putnbr(i);
-		ft_putstr("]: ");
-		ft_putendl(tmp->data);
-		tmp = tmp->next;
-		i++;
-	}
-}
-*/

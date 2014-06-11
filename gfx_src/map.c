@@ -104,10 +104,7 @@ int				move_player(char **data)
 	int				delta[2] = {0, 0};
 	int				coords[4];
 	t_pl			*player;
-	/*
-	Move:
-		- pmv #n dst_x dst_y dst_o
-	*/
+
 	if (!(player = locate_before_moving(data, delta, coords)))
 		return (-1);
 	player->pos_x = coords[0];

@@ -31,6 +31,7 @@
 # include "SDL2ttf/include/SDL2/SDL_ttf.h"
 # include "../includes/libft.h"
 # define MAP (map_singleton())
+# define LOG (logs_singleton())
 # define TRUE		1
 # define FALSE		0
 # define LIN		10
@@ -63,6 +64,17 @@ int				start_gfx(int ac, char **av);
 int		receiver_msqid(void);
 int		transmitter_msqid(void);
 
+typedef struct		s_log
+{
+	char			*msg;
+	struct s_log	*next;
+}					t_log;
+
+typedef struct		s_logs
+{
+	t_log			*head;
+	t_log			*tail;
+}					t_logs;
 
 typedef struct	s_pl
 {
@@ -138,4 +150,11 @@ int				start_message_receiver(int ac, char **av);
 **	player_linkedlist.c
 */
 void			pushback_pl(t_pl **first, char **data);
+
+/*
+**	log.c
+*/
+t_logs			*logs_singleton(void);
+int				pushback_log(char *msg);
+
 #endif
