@@ -37,7 +37,7 @@ int				msg_is_pnw(char **data)
 {
 	if (!strcmp(data[0], "pnw"))
 	{
-		input_cell_contents(data);
+		input_new_player(data);
 		return (TRUE);
 	}
 	return (FALSE);
@@ -53,9 +53,19 @@ int				msg_is_pmv(char **data)
 	return (FALSE);
 }
 
+int				msg_is_welcome(char **data)
+{
+	if (!strcmp(data[0], "BIENVENUE"))
+	{
+		send_message("GRAPHICS\n");
+		return (TRUE);
+	}
+	return (FALSE);
+}
+
 static int		(*g_msg[])(char **) =
 	{
-		&msg_is_msz, &msg_is_bct, msg_is_pmv, NULL
+		&msg_is_welcome, &msg_is_pnw, &msg_is_msz, &msg_is_bct, msg_is_pmv, NULL
 	};
 
 int				id_message(char **data)

@@ -11,39 +11,46 @@
 /* ************************************************************************** */
 
 #include "gfx.h"
-/*
-	if (SDL_Init(SDL_INIT_VIDEO) < 0)
-		printf("PABON");
-	SDL_Window      *win;
-	SDL_Window      *win2;
-	SDL_Event       event;
-	//SDL_Texture     *tex;
-	SDL_Renderer    *rd;
-	SDL_Renderer    *rd2;
-	//SDL_Point       *p;
-	//Uint32				*texturebuf;
-	SDL_Init(SDL_INIT_VIDEO);
-	SDL_CreateWindowAndRenderer(800, 600, SDL_WINDOW_SHOWN, &win, &rd);
-	SDL_CreateWindowAndRenderer(800, 600, SDL_WINDOW_SHOWN, &win2, &rd2);
-	while (42)
-	{
-		SDL_PollEvent(&event);
-		if (event.type == SDL_KEYDOWN && event.key.keysym.sym == SDLK_ESCAPE)
-		{
-			SDL_DestroyWindow(win);
-			SDL_DestroyWindow(win2);
-			SDL_Quit();
-			exit(0);
-		}
-	}
-	*/
 
+static int		msq_init(void)
+{
+	int				msqid;
+	key_t			key;
+
+	if ((key = ftok("gfx.c", 'A')) == -1)
+	{
+		perror("ftok");
+		exit(1);
+	}
+	if ((msqid = msgget(key, 0644 | IPC_CREAT)) == -1)
+	{
+		perror("msgget");
+		exit(1);
+	}
+	if ((key = ftok("message_id.c", 'B')) == -1)
+	{
+		perror("ftok");
+		exit(1);
+	}
+	if ((msqid = msgget(key, 0644 | IPC_CREAT)) == -1)
+	{
+		perror("msgget");
+		exit(1);
+	}
+	return (0);
+}
 
 int				main(int ac, char **av)
 {
+	int				pid;
+
 	if (ac != 3 && ac != 5)
 		return (print_usage());
-	if (start_gfx(ac, av) < 0)
+	msq_init();
+	pid = fork();
+	if (!pid)
+		start_message_receiver(ac, av);
+	else if (start_gfx(ac, av) < 0)
 		return (-1);
 	return (0);
 }

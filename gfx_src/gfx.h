@@ -25,6 +25,7 @@
 #include <sys/types.h>
 #include <sys/ipc.h>
 #include <sys/msg.h>
+# include <dirent.h>
 # include "SDL2/include/SDL2/sdl.h"
 # include "SDL2img/include/SDL2/SDL_image.h"
 # include "SDL2ttf/include/SDL2/SDL_ttf.h"
@@ -59,9 +60,11 @@ int				get_hostname(int ac, char **av, char **host);
 **	gfx.c
 */
 int				start_gfx(int ac, char **av);
+int		receiver_msqid(void);
+int		transmitter_msqid(void);
 
 
-typedef struct		s_player
+typedef struct	s_pl
 {
 	int				id;
 	char			*team;
@@ -69,25 +72,20 @@ typedef struct		s_player
 	int				pos_y;
 	int				lv;
 	int				o;
-}					t_player;
-
-typedef struct		s_pl
-{
-	int				id;
 	struct s_pl		*next;
 }					t_pl;
 
 typedef struct		s_cell
 {
 	int				contents[7];
-
+	int				casting;
 }					t_cell;
 typedef struct		s_map
 {
 	int				map_x;
 	int				map_y;
 	t_cell			**grid;
-	t_pl			*player;
+	t_pl			*players;
 	int				click_x;
 	int				click_y;
 	int				serv_fd;
@@ -99,6 +97,7 @@ t_map			*map_singleton(void);
 int				init_map(void);
 int				input_mapdata(char **data);
 int				input_cell_contents(char **data);
+int				input_new_player(char **data);
 int				dummy_testing_input(void);
 int				move_player(char **data);
 
@@ -112,12 +111,13 @@ void			render_texture(SDL_Texture *t, SDL_Renderer *r, int x, int y);
 **	render.c
 */
 int				bobone(SDL_Renderer *window, SDL_Renderer *window2);
-int		bury_ore(int x, int y, int ore_type, int ore_nb);
+int				bury_ore(int x, int y, int ore_type, int ore_nb);
 
 /*
 **	socket_recv.c
 */
 char			**process_message(char *message);
+int				send_message(char *message);
 
 /*
 **	message_id.c
@@ -129,5 +129,13 @@ int				id_message(char **data);
 */
 SDL_Surface		*prepare_ttf(SDL_Renderer *ren);
 
+/*
+**	main3.c
+*/
+int				start_message_receiver(int ac, char **av);
 
+/*
+**	player_linkedlist.c
+*/
+void			pushback_pl(t_pl **first, char **data);
 #endif

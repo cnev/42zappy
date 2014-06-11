@@ -35,3 +35,13 @@ char			**process_message(char *message)
 	free(data);
 	return (tab);
 }
+
+int				send_message(char *message)
+{
+	struct my_msgbuf buf;
+
+	strcpy(buf.mtext, message);
+	if (msgsnd(transmitter_msqid(), &buf, strlen(buf.mtext + 1), 0) == -1)
+		perror("msgsnd");
+	return (0);
+}

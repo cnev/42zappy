@@ -11,43 +11,28 @@
 /* ************************************************************************** */
 
 #include "gfx.h"
-/*
-typedef struct	s_player
-{
-	int				id;
-	char			*team;
-	int				pos_x;
-	int				pos_y;
-	int				lv;
-	int				o;
-}					t_player;
 
-typedef struct	s_list_player
-{
-	t_player		*player;
-	s_list_player	*next;
-}					t_list_player;
 
-t_list_player	*create_elem(char *data)
-{
-	t_list_player	*elem;
-	char			**msg;
 
-	msg = ft_strsplit(data, ' ');
-	elem = (t_list_player *)malloc(sizeof(t_list_player));
-	elem->player->id = atoi(msg[0]);
-	elem->player->team = ft_strdup(msg[1]);
-	elem->player->pos_x = atoi(msg[2]);
-	elem->player->pos_y = atoi(msg[3]);
-	elem->player->lv = atoi(msg[4]);
-	elem->player->o = atoi(msg[5]);
+
+static t_pl			*new_pl(char **data)
+{
+	t_pl			*elem;
+
+	elem = (t_pl *)malloc(sizeof(t_pl));
+	elem->id = atoi(data[1] + 1);
+	elem->team = strdup(data[6]);
+	elem->pos_x = atoi(data[2]);
+	elem->pos_y = atoi(data[3]);
+	elem->lv = atoi(data[4]);
+	elem->o = atoi(data[5]);
 	elem->next = NULL;
 	return (elem);
 }
 
-int				list_size(t_list_player *first)
+int				pl_size(t_pl *first)
 {
-	t_list_player	*tmp;
+	t_pl	*tmp;
 	int				i;
 
 	i = 0;
@@ -60,29 +45,28 @@ int				list_size(t_list_player *first)
 	return (i);
 }
 
-void			pushback(t_list_player **first, char *data)
+void			pushback_pl(t_pl **first, char **data)
 {
-	t_list_player	*tmp;
-	t_list_player	*new_elem;
+	t_pl	*tmp;
+	t_pl	*new_elem;
 
-//printf("data = %s\n", data);
 	if (!(*first))
-		*first = create_elem(data);
+		*first = new_pl(data);
 	else
 	{
 		tmp = *first;
 		while (tmp->next)
 			tmp = tmp->next;
-		new_elem = create_elem(data);
+		new_elem = new_pl(data);
 		tmp->next = new_elem;
-//		printf("pushed\n");
 	}
-}*/
+}
 
-/*void			delete_list(t_list_player **first)
+/*
+void			delete_list(t_pl **first)
 {
-	t_list_player	*tmp;
-	t_list_player	*prev;
+	t_pl	*tmp;
+	t_pl	*prev;
 
 	if (!*first)
 	{
@@ -92,15 +76,15 @@ void			pushback(t_list_player **first, char *data)
 	tmp = (*first)->next;
 	while (prev)
 	{
-		free(prev->data);
 		free(prev);
 		prev = tmp;
 		if (tmp)
 			tmp = tmp->next;
 	}
 	*first = NULL;
-}*/
-/*
+}
+
+
 void			show_list(t_list_player *first)
 {
 	t_list_player	*tmp;

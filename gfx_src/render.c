@@ -16,7 +16,7 @@ static int		render_land(SDL_Renderer *ren)
 {
 	int				i = -1;
 	int				j;
-	SDL_Texture		*background = load_texture("fond_vert.bmp", ren);
+	SDL_Texture		*background = load_texture("img/fond_vert.bmp", ren);
 
 	while (++i < MAP->map_y)
 	{
@@ -29,7 +29,7 @@ static int		render_land(SDL_Renderer *ren)
 	return (0);
 }
 
-int		bury_ore(int x, int y, int ore_type, int ore_nb)
+int				bury_ore(int x, int y, int ore_type, int ore_nb)
 {
 	MAP->grid[y][x].contents[ore_type] = ore_nb;
 	return (0);
@@ -41,7 +41,7 @@ static int		render_ore(SDL_Renderer *ren)
 	int				j;
 	int				k;
 
-	SDL_Texture		*background = load_texture("pioche.bmp", ren);
+	SDL_Texture		*background = load_texture("img/pioche.bmp", ren);
 	while (++i < MAP->map_y)
 	{
 		j = -1;
@@ -62,21 +62,14 @@ static int		render_ore(SDL_Renderer *ren)
 
 static int		render_player(SDL_Renderer *ren)
 {
-	int				i = -1;
-	int				j;
+	SDL_Texture		*background = load_texture("img/cercletamere.bmp", ren);
+	t_pl			*tmp;
 
-	SDL_Texture		*background = load_texture("cercletamere.bmp", ren);
-
-	while (++i < MAP->map_y)
+	tmp = MAP->players;
+	while (tmp)
 	{
-		j = -1;
-		while (++j < MAP->map_x)
-		{
-			if (MAP->grid[j][i].player)
-			{
-				render_texture(background, ren, CELL_W * j, CELL_H * i);
-			}
-		}
+		render_texture(background, ren, CELL_W * tmp->pos_x, CELL_H * tmp->pos_y);
+		tmp = tmp->next;
 	}
 	return (0);
 }

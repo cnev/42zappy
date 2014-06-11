@@ -13,6 +13,7 @@
 NAME3 = gfx
 
 SRC3 += main.c
+SRC3 += main3.c
 SRC3 += print.c
 SRC3 += gfx.c
 SRC3 += argv.c
@@ -32,10 +33,9 @@ all: $(NAME3)
 
 $(NAME3): $(OBJ3)
 	make -C ../libft
-	gcc -Wall -Wextra -Werror -o $(NAME3) $(OBJ3) -O3 -L../libft -lft $(LDFLAGS) \
+	gcc -Wall -Wextra -Werror -g -o $(NAME3) $(OBJ3) -O3 -L../libft -lft $(LDFLAGS) \
 	-I SDL2/includes/SDL2 -I SDL2ttf/includes/SDL2
 	gcc -o server main2.c
-	gcc -o kirk main3.c
 
 %.o:%.c
 	gcc -Wall -Wextra -Werror -O3 -c -o $@ $^ -I. -I SDL2/includes/SDL2 -I SDL2ttf/includes/SDL2
